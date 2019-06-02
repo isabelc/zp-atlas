@@ -17,6 +17,12 @@
   display: flex;
    padding:10px;
 }
+#zp-atlas-status .inside {
+	padding: 0 10px;
+}
+#zp-atlas-status table {
+	margin-bottom: 10px;
+}
 #zp-atlas-status td {
   font-size: inherit;
   margin-bottom: 0;
