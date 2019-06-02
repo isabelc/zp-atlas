@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: ZodiacPress Atlas
-Plugin URI: https://isabelcastillo.com/free-plugins/zp-atlas@todoLIVE
+Plugin URI: https://isabelcastillo.com/free-plugins/zpatlas
 Description: Your own atlas database for ZodiacPress instead of using GeoNames.org
-Version: 1.0.alpha-4
+Version: 1.0.alpha-5
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GNU GPLv2
@@ -30,7 +30,7 @@ along with ZodiacPress Atlas. If not, see <http://www.gnu.org/licenses/>.
 */
 if ( ! defined( 'ABSPATH' ) ) exit;
 if ( ! defined( 'ZPATLAS_VERSION' ) ) {
-	define( 'ZPATLAS_VERSION', '0.9.alpha-1' );// @todo update
+	define( 'ZPATLAS_VERSION', '1.0.alpha-5' );// @todo update
 }
 if ( ! defined( 'ZPATLAS_URL' ) ) {
 	define( 'ZPATLAS_URL', plugin_dir_url( __FILE__ ) );

@@ -21,6 +21,10 @@ add_action( 'wp_async_zp_atlas_import', function () {
 	$error = '';
 	$datafile = 'cities.txt';
 	$size = 275665461;// Current filesize of cities.txt @todo update
+
+
+	// @todo must get file from local SINCE WILL NO LONGER BE HOSTED ON GOOGLE!!!
+
 	$url = 'https://storage.googleapis.com/zodiacpress_cities/' . $datafile;
 	$temp_dir = get_temp_dir();
 
