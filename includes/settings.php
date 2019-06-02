@@ -68,20 +68,20 @@ function zpa_settings_misc($settings) {
 	$new = array(
 			'atlas'	=> array(
 				'id'	=> 'atlas',
-				'name'	=> __( 'Choose Atlas', 'zodiacpress' ),
-				'desc'	=> sprintf( __( 'You need an atlas to get city coordinates and timezones. Do you want to use GeoNames.org or create your own atlas database? (<a href="%1$s" target="_blank" rel="noopener">Help with this decision</a>)', 'zodiacpress' ), 'https://isabelcastillo.com/docs/choose-atlas' ),
+				'name'	=> __( 'Choose Atlas', 'zp-atlas' ),
+				'desc'	=> sprintf( __( 'You need an atlas to get city coordinates and timezones. Do you want to use GeoNames.org or create your own atlas database? (<a href="%1$s" target="_blank" rel="noopener">Help with this decision</a>)', 'zp-atlas' ), 'https://isabelcastillo.com/docs/choose-atlas' ),
 				'type'	=> 'radio',
 				'options' => array(
-					'geonames' => __( 'Use GeoNames', 'zodiacpress' ),
-					'db' => __( 'Use my own atlas database', 'zodiacpress' ),
+					'geonames' => __( 'Use GeoNames', 'zp-atlas' ),
+					'db' => __( 'Use my own atlas database', 'zp-atlas' ),
 				),
 				'std'	=> 'geonames',
 				'class' => 'zp-setting-atlas'
 			),
 			'geonames_user'	=> array(
 				'id'	=> 'geonames_user',
-				'name'	=> __( 'GeoNames Username', 'zodiacpress' ),
-				'desc'	=> sprintf( __( 'Your username from GeoNames.org is needed to get timezone info from their webservice. (%1$screate free account%2$s)', 'zodiacpress' ), '<a href="http://www.geonames.org/login" target="_blank" rel="noopener">', '</a>' ),
+				'name'	=> __( 'GeoNames Username', 'zp-atlas' ),
+				'desc'	=> sprintf( __( 'Your username from GeoNames.org is needed to get timezone info from their webservice. (%1$screate free account%2$s)', 'zp-atlas' ), '<a href="http://www.geonames.org/login" target="_blank" rel="noopener">', '</a>' ),
 				'type'	=> 'subtext',
 				'size'	=> 'medium',
 				'std'	=> '',
@@ -89,7 +89,7 @@ function zpa_settings_misc($settings) {
 			),
 			'atlas_status'	=> array(
 				'id'	=> 'atlas_status',
-				'name'	=> __( 'Atlas Status', 'zodiacpress' ),
+				'name'	=> __( 'Atlas Status', 'zp-atlas' ),
 				'type'	=> 'atlas',
 				'class' => 'zp-setting-atlas-status'
 			)

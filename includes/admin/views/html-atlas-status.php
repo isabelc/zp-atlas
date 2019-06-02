@@ -8,21 +8,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 $table_exists = ZPAtlas_DB::table_exists();
 $installing = get_option( 'zp_atlas_db_installing' );
 $pending_msg = get_option( 'zp_atlas_db_pending' );
-$status = __( 'error', 'zodiacpress' );
+$status = __( 'error', 'zp-atlas' );
 $class = 'atlas-error';
 $checkmark = '';
 
 if ( $pending_msg ) {
 	$status = $pending_msg;
 } else {
-	$status = ( $installing ? zp_string( 'installing' ) : __( 'none', 'zodiacpress' ) );
+	$status = ( $installing ? zp_string( 'installing' ) : __( 'none', 'zp-atlas' ) );
 }
 
 if ( ! $table_exists ) {
-	$status = __( 'none', 'zodiacpress' );
+	$status = __( 'none', 'zp-atlas' );
 } else {
 	if ( 'db' !== zpatlas_option() ) {
-		$status = __( 'not in use', 'zodiacpress' );
+		$status = __( 'not in use', 'zp-atlas' );
 	} else {
 
 		if ( ! $installing && ! $pending_msg ) {
@@ -44,19 +44,19 @@ if ( ! $table_exists ) {
 if ( ! ZPAtlas_DB::is_installed() && ! ZPAtlas_DB::is_separate_db() && ! $installing ) {
 	?>
 	<div id="zp-atlas-installer">
-		<p><?php echo __( 'To create your atlas inside your WordPress database, run the Atlas Installer.', 'zodiacpress' ); ?>
-			<strong><?php printf( __( 'Skip this to use a <a href="%s" target="_blank" rel="noopener">separate database</a>.', 'zodiacpress' ), 'https://isabelcastillo.com/docs/atlas-separate-database' ); ?></strong></p>
-		<p><button id="zp-atlas-install" class="button-primary"><?php _e( 'Run the Atlas Installer', 'zodiacpress' ); ?></button></p>
+		<p><?php echo __( 'To create your atlas inside your WordPress database, run the Atlas Installer.', 'zp-atlas' ); ?>
+			<strong><?php printf( __( 'Skip this to use a <a href="%s" target="_blank" rel="noopener">separate database</a>.', 'zp-atlas' ), 'https://isabelcastillo.com/docs/atlas-separate-database' ); ?></strong></p>
+		<p><button id="zp-atlas-install" class="button-primary"><?php _e( 'Run the Atlas Installer', 'zp-atlas' ); ?></button></p>
 	</div>
 <?php } ?>
 
 <div id="zp-atlas-status" class="stuffbox">
 	<div class="inside">
-		<h2><?php _e( 'Atlas Status', 'zodiacpress' ); ?></h2>
+		<h2><?php _e( 'Atlas Status', 'zp-atlas' ); ?></h2>
 		<table class="widefat">
 
 			<tr>
-				<td><label><?php _e( 'Status', 'zodiacpress' ); ?></label></td>
+				<td><label><?php _e( 'Status', 'zp-atlas' ); ?></label></td>
 				<td>
 					<span class="zp-<?php echo $class; ?>"> <?php echo $checkmark; ?>
 						<?php echo $status; ?>
@@ -65,7 +65,7 @@ if ( ! ZPAtlas_DB::is_installed() && ! ZPAtlas_DB::is_separate_db() && ! $instal
 			</tr>
 
 			<tr>
-				<td><label><?php _e( 'City records count', 'zodiacpress' ); ?></label></td>
+				<td><label><?php _e( 'City records count', 'zp-atlas' ); ?></label></td>
 				<td id="zp-atlas-status-rows">
 					<?php 
 					if ( $table_exists && ! $installing ) {
@@ -76,7 +76,7 @@ if ( ! ZPAtlas_DB::is_installed() && ! ZPAtlas_DB::is_separate_db() && ! $instal
 			</tr>
 
 			<tr>
-				<td><label><?php _e( 'Database table size', 'zodiacpress' ); ?></label></td>
+				<td><label><?php _e( 'Database table size', 'zp-atlas' ); ?></label></td>
 				<td id="zp-atlas-status-size">
 					<?php
 					if ( $table_exists && ! $installing ) {
@@ -87,12 +87,12 @@ if ( ! ZPAtlas_DB::is_installed() && ! ZPAtlas_DB::is_separate_db() && ! $instal
 			</tr>
 
 			<tr>
-				<td><label><?php _e( 'Database table primary key', 'zodiacpress' ); ?></label></td>
+				<td><label><?php _e( 'Database table primary key', 'zp-atlas' ); ?></label></td>
 				<td id="zp-atlas-status-key">
 					<?php 
 					if ( $table_exists && ! $installing ) {
 
-						echo ZPAtlas_DB::key_exists( 'PRIMARY' ) ? __( 'okay', 'zodiacpress' ) : __( 'missing', 'zodiacpress' );
+						echo ZPAtlas_DB::key_exists( 'PRIMARY' ) ? __( 'okay', 'zp-atlas' ) : __( 'missing', 'zp-atlas' );
 
 					}
 					?>
@@ -100,12 +100,12 @@ if ( ! ZPAtlas_DB::is_installed() && ! ZPAtlas_DB::is_separate_db() && ! $instal
 			</tr>
 
 			<tr>
-				<td><label><?php _e( 'Database table index', 'zodiacpress' ); ?></label></td>
+				<td><label><?php _e( 'Database table index', 'zp-atlas' ); ?></label></td>
 				<td id="zp-atlas-status-index">
 					<?php 
 					if ( $table_exists && ! $installing ) {
 
-						echo ZPAtlas_DB::key_exists( 'ix_name_country' ) ? __( 'okay', 'zodiacpress' ) : __( 'missing', 'zodiacpress' );
+						echo ZPAtlas_DB::key_exists( 'ix_name_country' ) ? __( 'okay', 'zp-atlas' ) : __( 'missing', 'zp-atlas' );
 
 					}
 					?>

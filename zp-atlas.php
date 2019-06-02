@@ -3,13 +3,13 @@
 Plugin Name: ZodiacPress Atlas
 Plugin URI: https://isabelcastillo.com/free-plugins/zpatlas
 Description: Your own atlas database for ZodiacPress instead of using GeoNames.org
-Version: 1.0.alpha-7
+Version: 1.0.alpha-8
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GNU GPLv2
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain: zp-atlas@todo
-Domain Path: /languages@todo
+Text Domain: zp-atlas
+Domain Path: /languages
 
 Copyright 2019 Isabel Castillo
 
@@ -57,12 +57,12 @@ if ( ! function_exists('zp_string') ) {// @todo remove check in next update
 	 */
 	function zp_string( $id = '' ) {
 		$strings = array(
-			'active'		=> __( 'Active', 'zodiacpress' ),
-			'creating'		=> __( 'Creating table keys...', 'zodiacpress' ),
-			'failed_keys'	=> __( 'Failed to create table key(s):', 'zodiacpress' ),
-			'inserting'		=> __( 'Inserting cities data into database...', 'zodiacpress' ),
-			'installing'	=> __( 'installing...', 'zodiacpress' ),
-			'installing_notice' => __( 'The atlas is being installed in the background. This will take a few minutes.', 'zodiacpress' )
+			'active'		=> __( 'Active', 'zp-atlas' ),
+			'creating'		=> __( 'Creating table keys...', 'zp-atlas' ),
+			'failed_keys'	=> __( 'Failed to create table key(s):', 'zp-atlas' ),
+			'inserting'		=> __( 'Inserting cities data into database...', 'zp-atlas' ),
+			'installing'	=> __( 'installing...', 'zp-atlas' ),
+			'installing_notice' => __( 'The atlas is being installed in the background. This will take a few minutes.', 'zp-atlas' )
 		);
 		return $strings[ $id ];
 	}
@@ -80,15 +80,15 @@ function zpa_admin_scripts() {
 	wp_localize_script( 'zp-atlas-install', 'zpAtlasStrings',
 		array(
 			'adminurl'		=> admin_url(),
-			'checkStatus'	=> __( 'Check the status.', 'zodiacpress' ),
+			'checkStatus'	=> __( 'Check the status.', 'zp-atlas' ),
 			'creatingKeys'	=> zp_string( 'creating' ),
-			'dismiss'		=> __( 'Dismiss this notice.', 'zodiacpress' ),
+			'dismiss'		=> __( 'Dismiss this notice.', 'zp-atlas' ),
 			'inserting'		=> zp_string( 'inserting' ),
 			'installing'	=> zp_string( 'installing' ),
    			'installingNotice'	=> zp_string( 'installing_notice' ),
    			'installingNow' => get_option( 'zp_atlas_db_installing' ),
 			'nonce'			=> wp_create_nonce( 'zp_atlas_install' ),
-			'statusHeading'	=> __( 'ZodiacPress Status Message', 'zodiacpress' )
+			'statusHeading'	=> __( 'ZodiacPress Status Message', 'zp-atlas' )
 		)
 	);
 	
@@ -151,3 +151,7 @@ function zpatlas_get_cities() {
 }
 add_action( 'wp_ajax_zp_atlas_get_cities', 'zpatlas_get_cities' );
 add_action( 'wp_ajax_nopriv_zp_atlas_get_cities', 'zpatlas_get_cities' );
+function zp_atlas_lang() {
+	load_plugin_textdomain( 'zp-atlas', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
+}
+add_action('init', 'zp_atlas_lang');

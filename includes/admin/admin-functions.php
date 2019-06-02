@@ -20,14 +20,14 @@ function zpatlas_receive_heartbeat( $response, $data ) {
 	// If atlas install in complete, Show "Atlas is Ready" admin notice once
 	if ( get_transient( 'zp_atlas_ready_once' ) ) {
 		delete_transient( 'zp_atlas_ready_once' );
-		$response['zpatlas_status_notice'] = __( 'The atlas installation is complete. It is ready for use.', 'zodiacpress' );
+		$response['zpatlas_status_notice'] = __( 'The atlas installation is complete. It is ready for use.', 'zp-atlas' );
 		$response['zpatlas_status_field'] = zp_string( 'active' );
 		// send DB row count, size, and keys
 		$response['zpatlas_status_db'] = array(
 			'rows'	=> number_format( ZPAtlas_DB::row_count() ),
 			'size'	=> ( $size = zpatlas_get_size() ) ? ( number_format( $size / 1048576, 1 ) . ' MB' ) : $size,
-			'key'	=> ZPAtlas_DB::key_exists( 'PRIMARY' ) ? __( 'okay', 'zodiacpress' ) : __( 'missing', 'zodiacpress' ),
-			'index'	=> ZPAtlas_DB::key_exists( 'ix_name_country' ) ? __( 'okay', 'zodiacpress' ) : __( 'missing', 'zodiacpress' ),
+			'key'	=> ZPAtlas_DB::key_exists( 'PRIMARY' ) ? __( 'okay', 'zp-atlas' ) : __( 'missing', 'zp-atlas' ),
+			'index'	=> ZPAtlas_DB::key_exists( 'ix_name_country' ) ? __( 'okay', 'zp-atlas' ) : __( 'missing', 'zp-atlas' ),
 		);
 	} else {
 		$response['zpatlas_status_field'] = get_option( 'zp_atlas_db_pending' );

@@ -30,7 +30,7 @@ add_action( 'wp_async_zp_atlas_import', function () {
 
 	if ( ! $temp_dir ) {
 
-		$error = __( 'Cannot find a writable temp directory.', 'zodiacpress' );
+		$error = __( 'Cannot find a writable temp directory.', 'zp-atlas' );
 
 	} else {
 
@@ -44,7 +44,7 @@ add_action( 'wp_async_zp_atlas_import', function () {
 
 			if ( ! copy( $url, $temp_dir . $datafile ) ) {
 				
-				$error = __( 'Cities data file could not be downloaded.', 'zodiacpress' );
+				$error = __( 'Cities data file could not be downloaded.', 'zp-atlas' );
 
 			} else {
 
@@ -93,7 +93,7 @@ add_action( 'wp_async_zp_atlas_insert_db', function () {
 	$error = '';
 
 	if ( ! ZPAtlas_DB::table_exists() ) {
-		$error = __( 'ERROR: zp_atlas table does not exist', 'zodiacpress' );
+		$error = __( 'ERROR: zp_atlas table does not exist', 'zp-atlas' );
 		update_option( 'zp_atlas_db_pending', $error );
 		update_option( 'zp_atlas_db_notice', $error );// admin notice
 		return $out;
@@ -134,7 +134,7 @@ add_action( 'wp_async_zp_atlas_insert_db', function () {
 			}
 		} else {
 			// data was not loaded in to database
-			$error = __( 'Failed to insert cities data into database table.', 'zodiacpress' );
+			$error = __( 'Failed to insert cities data into database table.', 'zp-atlas' );
 		}
 	}
 
