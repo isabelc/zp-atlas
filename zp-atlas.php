@@ -3,7 +3,7 @@
 Plugin Name: ZodiacPress Atlas
 Plugin URI: https://isabelcastillo.com/free-plugins/zp-atlas@todoLIVE
 Description: Your own atlas database for ZodiacPress instead of using GeoNames.org
-Version: 1.0.alpha-2
+Version: 1.0.alpha-3
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GNU GPLv2
@@ -42,12 +42,14 @@ if ( ! defined( 'ZPATLAS_PATH' ) ) {
 include_once ZPATLAS_PATH . 'includes/settings.php';
 
 
+
 if (!class_exists('ZP_Atlas_DB', false)) {
 	include_once ZPATLAS_PATH . 'includes/class-zp-atlas-db.php';
 }
-
 include_once ZPATLAS_PATH . 'includes/atlas-functions.php';
-
+include_once ZPATLAS_PATH . 'includes/async/async-tasks.php';
+include_once ZPATLAS_PATH . 'includes/async/class-zp-atlas-import.php';
+include_once ZPATLAS_PATH . 'includes/async/class-zp-atlas-insert-db.php';
 
 if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 	include_once ZPATLAS_PATH . 'includes/admin/admin-functions.php';
