@@ -3,7 +3,7 @@
 Plugin Name: ZodiacPress Atlas
 Plugin URI: https://isabelcastillo.com/free-plugins/zp-atlas@todoLIVE
 Description: Your own atlas database for ZodiacPress instead of using GeoNames.org
-Version: 1.0.alpha-1
+Version: 1.0.alpha-2
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GNU GPLv2
@@ -90,3 +90,24 @@ function zpa_admin_scripts() {
 	}
 }
 add_action( 'admin_enqueue_scripts', 'zpa_admin_scripts', 100 );
+/**
+ * Register fron end styles and scripts
+ */
+function zpa_register_scripts() {
+	$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+	/* If atlas db option is selected and if the atlas is installed, use autocomplete-db.js instead of the regular autocomplete.js. */
+	wp_register_script( 'zp-autocomplete-db', ZPATLAS_URL . 'assets/js/zp-autocomplete-db' . $suffix . '.js', array( 'jquery-ui-autocomplete', 'jquery' ), ZPATLAS_VERSION );
+	wp_localize_script( 'zp-autocomplete-db', 'zp_js_strings', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+}
+add_action( 'wp_enqueue_scripts', 'zpa_register_scripts' );
+/**
+ * Load the zp-autocomplete-db js instead of the core zp-autocomplete js
+ */
+function zpa_swap_scripts( $report_atts ) {
+	/* If atlas db option is selected and if the atlas is installed, use autocomplete-db.js instead of the regular autocomplete.js. */
+	if ( ZP_Atlas_DB::use_db() ) {// @test
+		wp_dequeue_script( 'zp-autocomplete' );
+		wp_enqueue_script( 'zp-autocomplete-db' );
+	}
+}
+add_action( 'zp_report_shortcode_before', 'zpa_swap_scripts' );
