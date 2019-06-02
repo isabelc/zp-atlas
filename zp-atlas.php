@@ -119,7 +119,7 @@ add_action( 'wp_enqueue_scripts', 'zpa_register_scripts' );
  */
 function zpa_swap_scripts( $report_atts ) {
 	/* If atlas db option is selected and if the atlas is installed, use autocomplete-db.js instead of the regular autocomplete.js. */
-	if ( ZPAtlas_DB::use_db() ) {// @test
+	if ( ZPAtlas_DB::use_db() ) {
 		wp_dequeue_script( 'zp-autocomplete' );
 		wp_enqueue_script( 'zp-autocomplete-db' );
 	}

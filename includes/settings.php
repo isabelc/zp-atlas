@@ -16,7 +16,7 @@ if ( ! function_exists('zp_subtext_callback') ) {// @todo remove check in next u
 	 * @param array $args Arguments passed by the setting
 	 * @return void
 	 */
-	function zp_subtext_callback( $args ) {// @test flex-container
+	function zp_subtext_callback( $args ) {
 		$name = isset( $args['name'] ) ? $args['name'] : '';
 		?>
 		<div class="zp-flex-container stuffbox"><div><strong><?php echo $name; ?></strong></div>
@@ -62,7 +62,7 @@ if ( ! function_exists('zp_atlas_callback') ) {// @todo remove check in next upd
  */
 function zpa_settings_misc($settings) {
 	// remove the core geonames_user settings
-	unset( $settings['main']['geonames_user'] );// @test
+	unset( $settings['main']['geonames_user'] );
 
 	// add these to top of Misc tab
 	$new = array(
