@@ -3,7 +3,7 @@
 Plugin Name: ZodiacPress Atlas
 Plugin URI: https://isabelcastillo.com/free-plugins/zpatlas
 Description: Your own atlas database for ZodiacPress instead of using GeoNames.org
-Version: 1.0.alpha-5
+Version: 1.0.alpha-6
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GNU GPLv2
@@ -122,3 +122,30 @@ function zpa_swap_scripts( $report_atts ) {
 	}
 }
 add_action( 'zp_report_shortcode_before', 'zpa_swap_scripts' );
+/**
+ * Handles ajax request to get cities from atlas database for autocomplete birth place field.
+ */
+function zp_atlas_get_cities() {
+	if ( empty( $_GET['c'] ) ) {
+		return;	
+	}
+	global $zpdb;
+	$a_json = array();
+	$term = sanitize_text_field( $_GET['c'] );
+	$term = $zpdb->esc_like( $term ) . '%';
+	$sql = $zpdb->prepare( 'SELECT name,admin1,country,latitude,longitude,timezone FROM ' . $zpdb->prefix . 'zp_atlas WHERE name LIKE %s ORDER BY country DESC, name', $term );
+	if ( $results = $zpdb->get_results( $sql ) ) {
+		foreach ( $results as $row ) {
+			$a_json[] = array(
+				'value'	=> ( $row->name . ( $row->admin1 ? ', ' . $row->admin1 : '' ) .', '.$row->country ),
+				'lat'	=> $row->latitude,
+				'long'	=> $row->longitude,
+				'tz'	=> $row->timezone
+			);
+		}
+	}
+	echo json_encode( $a_json );
+	wp_die();
+}
+add_action( 'wp_ajax_zp_atlas_get_cities', 'zp_atlas_get_cities' );
+add_action( 'wp_ajax_nopriv_zp_atlas_get_cities', 'zp_atlas_get_cities' );
