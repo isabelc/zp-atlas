@@ -5,7 +5,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-$table_exists = ZP_Atlas_DB::table_exists();
+$table_exists = ZPAtlas_DB::table_exists();
 $installing = get_option( 'zp_atlas_db_installing' );
 $pending_msg = get_option( 'zp_atlas_db_pending' );
 $status = __( 'error', 'zodiacpress' );
@@ -21,14 +21,14 @@ if ( $pending_msg ) {
 if ( ! $table_exists ) {
 	$status = __( 'none', 'zodiacpress' );
 } else {
-	if ( 'db' !== zp_atlas_option() ) {
+	if ( 'db' !== zpatlas_option() ) {
 		$status = __( 'not in use', 'zodiacpress' );
 	} else {
 
 		if ( ! $installing && ! $pending_msg ) {
 
 		    // check if table installation is complete
-			if ( ZP_Atlas_DB::use_db() ) {
+			if ( ZPAtlas_DB::use_db() ) {
 		    	$status = zp_string( 'active' );
 		    	$class = 'success';
 		    	$checkmark = ' &#x2713; &nbsp; ';
@@ -41,7 +41,7 @@ if ( ! $table_exists ) {
 
 // Show installer only if the db has not been installed and a custom one is not being used, and it's not currently installing.
 
-if ( ! ZP_Atlas_DB::is_installed() && ! ZP_Atlas_DB::is_separate_db() && ! $installing ) {
+if ( ! ZPAtlas_DB::is_installed() && ! ZPAtlas_DB::is_separate_db() && ! $installing ) {
 	?>
 	<div id="zp-atlas-installer">
 		<p><?php echo __( 'To create your atlas inside your WordPress database, run the Atlas Installer.', 'zodiacpress' ); ?>
@@ -69,7 +69,7 @@ if ( ! ZP_Atlas_DB::is_installed() && ! ZP_Atlas_DB::is_separate_db() && ! $inst
 				<td id="zp-atlas-status-rows">
 					<?php 
 					if ( $table_exists && ! $installing ) {
-						echo number_format( ZP_Atlas_DB::row_count() );
+						echo number_format( ZPAtlas_DB::row_count() );
 					}
 					?>
 				</td>
@@ -80,7 +80,7 @@ if ( ! ZP_Atlas_DB::is_installed() && ! ZP_Atlas_DB::is_separate_db() && ! $inst
 				<td id="zp-atlas-status-size">
 					<?php
 					if ( $table_exists && ! $installing ) {
-						// @todo put back echo ( $size = zp_atlas_get_size() ) ? ( number_format( $size / 1048576, 1 ) . ' MB' ) : $size;
+						echo ( $size = zpatlas_get_size() ) ? ( number_format( $size / 1048576, 1 ) . ' MB' ) : $size;
 					}
 					?>
 				</td>
@@ -92,7 +92,7 @@ if ( ! ZP_Atlas_DB::is_installed() && ! ZP_Atlas_DB::is_separate_db() && ! $inst
 					<?php 
 					if ( $table_exists && ! $installing ) {
 
-						echo ZP_Atlas_DB::key_exists( 'PRIMARY' ) ? __( 'okay', 'zodiacpress' ) : __( 'missing', 'zodiacpress' );
+						echo ZPAtlas_DB::key_exists( 'PRIMARY' ) ? __( 'okay', 'zodiacpress' ) : __( 'missing', 'zodiacpress' );
 
 					}
 					?>
@@ -105,7 +105,7 @@ if ( ! ZP_Atlas_DB::is_installed() && ! ZP_Atlas_DB::is_separate_db() && ! $inst
 					<?php 
 					if ( $table_exists && ! $installing ) {
 
-						echo ZP_Atlas_DB::key_exists( 'ix_name_country' ) ? __( 'okay', 'zodiacpress' ) : __( 'missing', 'zodiacpress' );
+						echo ZPAtlas_DB::key_exists( 'ix_name_country' ) ? __( 'okay', 'zodiacpress' ) : __( 'missing', 'zodiacpress' );
 
 					}
 					?>

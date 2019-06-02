@@ -4,14 +4,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * ZodiacPress ZP_Atlas_DB.
+ * ZodiacPress ZPAtlas_DB.
  *
  * Interacts with the atlas database.
  *
  * @package  ZodiacPress
  * @since 1.8
  */
-class ZP_Atlas_DB {
+class ZPAtlas_DB {
 
 	private static $table_exists;
 	private static $row_count;
@@ -100,8 +100,8 @@ class ZP_Atlas_DB {
 		if ( isset( self::$use ) ) {
 			return self::$use;
 		}
-		if ( 'db' === zp_atlas_option() ) {
-			self::$use = ( ZP_Atlas_DB::is_installed() || ZP_Atlas_DB::is_separate_db() );
+		if ( 'db' === zpatlas_option() ) {
+			self::$use = ( ZPAtlas_DB::is_installed() || ZPAtlas_DB::is_separate_db() );
 			return self::$use;
 		}
 		self::$use = false;

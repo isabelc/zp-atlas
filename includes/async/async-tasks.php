@@ -3,11 +3,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Instantiates the async tasks so they will run when their actions are fired.
  */
-function zp_atlas_async_tasks() {
-	new ZP_Atlas_Import();
-	new ZP_Atlas_Insert_DB();
+function zpatlas_async_tasks() {
+	new ZPAtlas_Import();
+	new ZPAtlas_Insert_DB();
 }
-add_action( 'plugins_loaded', 'zp_atlas_async_tasks' );
+add_action( 'plugins_loaded', 'zpatlas_async_tasks' );
 
 /**
  * Task 1: Hooks onto the zp_atlas_import async action to download the cities.txt datafile
@@ -92,19 +92,19 @@ add_action( 'wp_async_zp_atlas_insert_db', function () {
 	$out = false;
 	$error = '';
 
-	if ( ! ZP_Atlas_DB::table_exists() ) {
+	if ( ! ZPAtlas_DB::table_exists() ) {
 		$error = __( 'ERROR: zp_atlas table does not exist', 'zodiacpress' );
 		update_option( 'zp_atlas_db_pending', $error );
 		update_option( 'zp_atlas_db_notice', $error );// admin notice
 		return $out;
 	}
 
-	if ( ZP_Atlas_DB::row_count() > 3000000 ) {
+	if ( ZPAtlas_DB::row_count() > 3000000 ) {
 		
 		// Cities data had already been inserted.
  
 		// Make sure key and index were already created.
-		$index = zp_atlas_table_create_keys();
+		$index = zpatlas_table_create_keys();
 		if ( true === $index ) {
 			$out = true;
 		} else {
@@ -114,14 +114,14 @@ add_action( 'wp_async_zp_atlas_insert_db', function () {
 
 	} else {
 
-		$insert = zp_atlas_load_data_infile();
+		$insert = zpatlas_load_data_infile();
 
 		if ( true === $insert ) {
 			
 			update_option( 'zp_atlas_db_pending', zp_string( 'creating' ) );
 			
 			// create primary key and index
-			$index = zp_atlas_table_create_keys();
+			$index = zpatlas_table_create_keys();
 
 			if ( true === $index ) {
 

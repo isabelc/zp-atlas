@@ -9,53 +9,58 @@ function zpa_sanitize_subtext_field( $input, $key ) {
 	return sanitize_text_field( $input );
 }
 add_filter( 'zp_settings_sanitize_subtext', 'zpa_sanitize_subtext_field', 10, 2 );
-/**
- * Callback function that renders alternate text settings.
- *
- * @param array $args Arguments passed by the setting
- * @return void
- */
-function zp_subtext_callback( $args ) {// @test flex-container
-	$name = isset( $args['name'] ) ? $args['name'] : '';
-	?>
-	<div class="zp-flex-container stuffbox"><div><strong><?php echo $name; ?></strong></div>
-	<div><?php zp_text_callback( $args ); ?></div></div>
-	<?php
-}
-/**
- * Callback that renders radio input setting
- *
- * @param array $args Arguments passed by the setting
- * @return void
- */
-function zp_radio_callback( $args ) {
-	$options = get_option( 'zodiacpress_settings' );
-	if ( isset( $options[ $args['id'] ] ) ) {
-		$value = $options[ $args['id'] ];
-	} else {
-		$value = isset( $args['std'] ) ? $args['std'] : '';
+if ( ! function_exists('zp_subtext_callback') ) {// @todo remove check in next update
+	/**
+	 * Callback function that renders alternate text settings.
+	 *
+	 * @param array $args Arguments passed by the setting
+	 * @return void
+	 */
+	function zp_subtext_callback( $args ) {// @test flex-container
+		$name = isset( $args['name'] ) ? $args['name'] : '';
+		?>
+		<div class="zp-flex-container stuffbox"><div><strong><?php echo $name; ?></strong></div>
+		<div><?php zp_text_callback( $args ); ?></div></div>
+		<?php
 	}
-	$html = '<label for="zodiacpress_settings[' . esc_attr( $args['id'] ) . ']"> ' . wp_kses_post( $args['desc'] ) . '</label>';
-	foreach ( $args['options'] as $option => $name ) {
-		$checked = ( $option === $value ) ? ' checked' : '';
-		$html .= '<div><input type="radio" name="zodiacpress_settings[' . esc_attr( $args['id'] ) . ']" id="zodiacpress_settings_' . esc_attr( $args['id'] ) . '_' . esc_attr( $option ) . '" value="' . esc_attr( $option ) . '"' . $checked . '>' . esc_html( $name ) . '</div>';
-	}
-	echo $html;
 }
-/**
- * Callback that renders Atlas status box
- *
- * @param array $args Arguments passed by the setting
- * @return void
- */
-function zp_atlas_callback( $args ) {
-	include ZPATLAS_PATH . 'includes/admin/views/html-atlas-status.php';
+if ( ! function_exists('zp_radio_callback') ) {// @todo remove check in next update
+	/**
+	 * Callback that renders radio input setting
+	 *
+	 * @param array $args Arguments passed by the setting
+	 * @return void
+	 */
+	function zp_radio_callback( $args ) {
+		$options = get_option( 'zodiacpress_settings' );
+		if ( isset( $options[ $args['id'] ] ) ) {
+			$value = $options[ $args['id'] ];
+		} else {
+			$value = isset( $args['std'] ) ? $args['std'] : '';
+		}
+		$html = '<label for="zodiacpress_settings[' . esc_attr( $args['id'] ) . ']"> ' . wp_kses_post( $args['desc'] ) . '</label>';
+		foreach ( $args['options'] as $option => $name ) {
+			$checked = ( $option === $value ) ? ' checked' : '';
+			$html .= '<div><input type="radio" name="zodiacpress_settings[' . esc_attr( $args['id'] ) . ']" id="zodiacpress_settings_' . esc_attr( $args['id'] ) . '_' . esc_attr( $option ) . '" value="' . esc_attr( $option ) . '"' . $checked . '>' . esc_html( $name ) . '</div>';
+		}
+		echo $html;
+	}
+}
+if ( ! function_exists('zp_atlas_callback') ) {// @todo remove check in next update
+	/**
+	 * Callback that renders Atlas status box
+	 *
+	 * @param array $args Arguments passed by the setting
+	 * @return void
+	 */
+	function zp_atlas_callback( $args ) {
+		include ZPATLAS_PATH . 'includes/admin/views/html-atlas-status.php';
+	}
 }
 /**
  * Add settings to the ZP settings Misc tab.
  */
 function zpa_settings_misc($settings) {
-
 	// remove the core geonames_user settings
 	unset( $settings['main']['geonames_user'] );// @test
 
@@ -95,3 +100,4 @@ function zpa_settings_misc($settings) {
 	$settings['main'] = array_merge($header, $new, $settings['main']);
 	return $settings;
 }
+add_filter('zp_settings_misc', 'zpa_settings_misc');

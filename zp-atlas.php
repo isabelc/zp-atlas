@@ -3,7 +3,7 @@
 Plugin Name: ZodiacPress Atlas
 Plugin URI: https://isabelcastillo.com/free-plugins/zpatlas
 Description: Your own atlas database for ZodiacPress instead of using GeoNames.org
-Version: 1.0.alpha-6
+Version: 1.0.alpha-7
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GNU GPLv2
@@ -40,8 +40,8 @@ if ( ! defined( 'ZPATLAS_PATH' ) ) {
 }
 
 include_once ZPATLAS_PATH . 'includes/settings.php';
-if (!class_exists('ZP_Atlas_DB', false)) {
-	include_once ZPATLAS_PATH . 'includes/class-zp-atlas-db.php';
+if (!class_exists('ZPAtlas_DB', false)) {
+	include_once ZPATLAS_PATH . 'includes/class-zpatlas-db.php';
 }
 include_once ZPATLAS_PATH . 'includes/atlas-functions.php';
 include_once ZPATLAS_PATH . 'includes/async/async-tasks.php';
@@ -51,19 +51,21 @@ include_once ZPATLAS_PATH . 'includes/async/class-zp-atlas-insert-db.php';
 if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 	include_once ZPATLAS_PATH . 'includes/admin/admin-functions.php';
 }
-/**
- * Returns a ZP message string
- */
-function zp_string( $id = '' ) {
-	$strings = array(
-		'active'		=> __( 'Active', 'zodiacpress' ),
-		'creating'		=> __( 'Creating table keys...', 'zodiacpress' ),
-		'failed_keys'	=> __( 'Failed to create table key(s):', 'zodiacpress' ),
-		'inserting'		=> __( 'Inserting cities data into database...', 'zodiacpress' ),
-		'installing'	=> __( 'installing...', 'zodiacpress' ),
-		'installing_notice' => __( 'The atlas is being installed in the background. This will take a few minutes.', 'zodiacpress' )
-	);
-	return $strings[ $id ];
+if ( ! function_exists('zp_string') ) {// @todo remove check in next update
+	/**
+	 * Returns a ZP message string
+	 */
+	function zp_string( $id = '' ) {
+		$strings = array(
+			'active'		=> __( 'Active', 'zodiacpress' ),
+			'creating'		=> __( 'Creating table keys...', 'zodiacpress' ),
+			'failed_keys'	=> __( 'Failed to create table key(s):', 'zodiacpress' ),
+			'inserting'		=> __( 'Inserting cities data into database...', 'zodiacpress' ),
+			'installing'	=> __( 'installing...', 'zodiacpress' ),
+			'installing_notice' => __( 'The atlas is being installed in the background. This will take a few minutes.', 'zodiacpress' )
+		);
+		return $strings[ $id ];
+	}
 }
 /**
  * Load admin-specific scripts and styles.
@@ -91,7 +93,7 @@ function zpa_admin_scripts() {
 	);
 	
 	// add install script only if atlas has not been installed and a custom db is not being used.
-	if ( ! ZP_Atlas_DB::is_installed() && ! ZP_Atlas_DB::is_separate_db() ) {
+	if ( ! ZPAtlas_DB::is_installed() && ! ZPAtlas_DB::is_separate_db() ) {
 		wp_enqueue_script( 'zp-atlas-install' );
 	}
 
@@ -116,7 +118,7 @@ add_action( 'wp_enqueue_scripts', 'zpa_register_scripts' );
  */
 function zpa_swap_scripts( $report_atts ) {
 	/* If atlas db option is selected and if the atlas is installed, use autocomplete-db.js instead of the regular autocomplete.js. */
-	if ( ZP_Atlas_DB::use_db() ) {// @test
+	if ( ZPAtlas_DB::use_db() ) {// @test
 		wp_dequeue_script( 'zp-autocomplete' );
 		wp_enqueue_script( 'zp-autocomplete-db' );
 	}
@@ -125,7 +127,7 @@ add_action( 'zp_report_shortcode_before', 'zpa_swap_scripts' );
 /**
  * Handles ajax request to get cities from atlas database for autocomplete birth place field.
  */
-function zp_atlas_get_cities() {
+function zpatlas_get_cities() {
 	if ( empty( $_GET['c'] ) ) {
 		return;	
 	}
@@ -147,5 +149,5 @@ function zp_atlas_get_cities() {
 	echo json_encode( $a_json );
 	wp_die();
 }
-add_action( 'wp_ajax_zp_atlas_get_cities', 'zp_atlas_get_cities' );
-add_action( 'wp_ajax_nopriv_zp_atlas_get_cities', 'zp_atlas_get_cities' );
+add_action( 'wp_ajax_zp_atlas_get_cities', 'zpatlas_get_cities' );
+add_action( 'wp_ajax_nopriv_zp_atlas_get_cities', 'zpatlas_get_cities' );

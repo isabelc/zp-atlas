@@ -15,19 +15,19 @@ if ( is_multisite() ) {
 	if ( $blogs ) {
 		foreach ( $blogs as $blog ) {
 			switch_to_blog( $blog['blog_id'] );
-			zp_uninstall();
+			zpatlas_uninstall();
 			restore_current_blog();
 		}
 	}
 }
 else {
-	zp_uninstall();
+	zpatlas_uninstall();
 }
 /**
  * Uninstall function.
  * @return void
  */
-function zp_uninstall() {
+function zpatlas_uninstall() {
 	$options = get_option( 'zodiacpress_settings' );
 	// Make sure that the user wants to remove all the data.
 	if ( isset( $options['remove_data'] ) && '1' == $options['remove_data'] ) {

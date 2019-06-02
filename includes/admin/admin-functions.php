@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  * @param array $response Heartbeat response data to pass back to front end.
  * @param array $data Data received from the front end (unslashed).
  */
-function zp_atlas_receive_heartbeat( $response, $data ) {
+function zpatlas_receive_heartbeat( $response, $data ) {
 	if ( empty( $data['zpatlas_status'] ) ) {
 		return $response;
 	}
@@ -24,10 +24,10 @@ function zp_atlas_receive_heartbeat( $response, $data ) {
 		$response['zpatlas_status_field'] = zp_string( 'active' );
 		// send DB row count, size, and keys
 		$response['zpatlas_status_db'] = array(
-			'rows'	=> number_format( ZP_Atlas_DB::row_count() ),
-			'size'	=> ( $size = zp_atlas_get_size() ) ? ( number_format( $size / 1048576, 1 ) . ' MB' ) : $size,
-			'key'	=> ZP_Atlas_DB::key_exists( 'PRIMARY' ) ? __( 'okay', 'zodiacpress' ) : __( 'missing', 'zodiacpress' ),
-			'index'	=> ZP_Atlas_DB::key_exists( 'ix_name_country' ) ? __( 'okay', 'zodiacpress' ) : __( 'missing', 'zodiacpress' ),
+			'rows'	=> number_format( ZPAtlas_DB::row_count() ),
+			'size'	=> ( $size = zpatlas_get_size() ) ? ( number_format( $size / 1048576, 1 ) . ' MB' ) : $size,
+			'key'	=> ZPAtlas_DB::key_exists( 'PRIMARY' ) ? __( 'okay', 'zodiacpress' ) : __( 'missing', 'zodiacpress' ),
+			'index'	=> ZPAtlas_DB::key_exists( 'ix_name_country' ) ? __( 'okay', 'zodiacpress' ) : __( 'missing', 'zodiacpress' ),
 		);
 	} else {
 		$response['zpatlas_status_field'] = get_option( 'zp_atlas_db_pending' );
@@ -41,13 +41,13 @@ function zp_atlas_receive_heartbeat( $response, $data ) {
 	}
 	return $response;
 }
-add_filter( 'heartbeat_received', 'zp_atlas_receive_heartbeat', 10, 2 );
+add_filter( 'heartbeat_received', 'zpatlas_receive_heartbeat', 10, 2 );
 /**
  * Get size of the zp_atlas database table including the size of its index.
  *
  * @return int $size in bytes
  */
-function zp_atlas_get_size() {
+function zpatlas_get_size() {
 	static $size;
 	if ( isset( $size ) ) {
 		return $size;

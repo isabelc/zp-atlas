@@ -8,7 +8,7 @@ if ( ! class_exists( 'WP_Async_Task', false ) ) {
 /**
  * Class that extends WP_Async_Task to insert cities data into database in the background.
  */
-class ZP_Atlas_Insert_DB extends WP_Async_Task {
+class ZPAtlas_Insert_DB extends WP_Async_Task {
 
 	protected $action = 'zp_atlas_insert_db';
 
