@@ -38,7 +38,8 @@ if ( ! defined( 'ZPATLAS_URL' ) ) {
 if ( ! defined( 'ZPATLAS_PATH' ) ) {
 	define( 'ZPATLAS_PATH', plugin_dir_path( __FILE__ ) );
 }
-
+include_once(ZPATLAS_PATH . 'includes/updater.php');
+$updater = new ZPAtlas_Updater(__FILE__ , 'isabelc', 'zp-altas');
 include_once ZPATLAS_PATH . 'includes/settings.php';
 if (!class_exists('ZPAtlas_DB', false)) {
 	include_once ZPATLAS_PATH . 'includes/class-zpatlas-db.php';
