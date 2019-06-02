@@ -3,7 +3,7 @@
 Plugin Name: ZodiacPress Atlas
 Plugin URI: https://isabelcastillo.com/free-plugins/zp-atlas@todoLIVE
 Description: Your own atlas database for ZodiacPress instead of using GeoNames.org
-Version: 1.0.alpha-3
+Version: 1.0.alpha-4
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GNU GPLv2
@@ -40,9 +40,6 @@ if ( ! defined( 'ZPATLAS_PATH' ) ) {
 }
 
 include_once ZPATLAS_PATH . 'includes/settings.php';
-
-
-
 if (!class_exists('ZP_Atlas_DB', false)) {
 	include_once ZPATLAS_PATH . 'includes/class-zp-atlas-db.php';
 }
@@ -54,8 +51,20 @@ include_once ZPATLAS_PATH . 'includes/async/class-zp-atlas-insert-db.php';
 if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 	include_once ZPATLAS_PATH . 'includes/admin/admin-functions.php';
 }
-
-
+/**
+ * Returns a ZP message string
+ */
+function zp_string( $id = '' ) {
+	$strings = array(
+		'active'		=> __( 'Active', 'zodiacpress' ),
+		'creating'		=> __( 'Creating table keys...', 'zodiacpress' ),
+		'failed_keys'	=> __( 'Failed to create table key(s):', 'zodiacpress' ),
+		'inserting'		=> __( 'Inserting cities data into database...', 'zodiacpress' ),
+		'installing'	=> __( 'installing...', 'zodiacpress' ),
+		'installing_notice' => __( 'The atlas is being installed in the background. This will take a few minutes.', 'zodiacpress' )
+	);
+	return $strings[ $id ];
+}
 /**
  * Load admin-specific scripts and styles.
  */
