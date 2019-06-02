@@ -2,7 +2,7 @@
 /**
  * Fired when the plugin is uninstalled.
  *
- * @package     ZodiacPress
+ * @package ZodiacPress Atlas
  */
 
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {

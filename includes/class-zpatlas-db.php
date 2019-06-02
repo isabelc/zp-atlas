@@ -7,9 +7,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * ZodiacPress ZPAtlas_DB.
  *
  * Interacts with the atlas database.
- *
- * @package  ZodiacPress
- * @since 1.8
  */
 class ZPAtlas_DB {
 
