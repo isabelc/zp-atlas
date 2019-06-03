@@ -1,0 +1,191 @@
+# Copyright (C) 2019 ZodiacPress Atlas
+# This file is distributed under the same license as the ZodiacPress Atlas package.
+msgid ""
+msgstr ""
+"Project-Id-Version: ZodiacPress Atlas 0.16\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/zp-atlas\n"
+"POT-Creation-Date: 2019-06-03 20:37:24+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/admin/admin-functions.php:23
+msgid "The atlas installation is complete. It is ready for use."
+msgstr ""
+
+#: includes/admin/admin-functions.php:29 includes/admin/admin-functions.php:30
+#: includes/admin/views/html-atlas-status.php:96
+#: includes/admin/views/html-atlas-status.php:109
+msgid "okay"
+msgstr ""
+
+#: includes/admin/admin-functions.php:29 includes/admin/admin-functions.php:30
+#: includes/admin/views/html-atlas-status.php:96
+#: includes/admin/views/html-atlas-status.php:109
+msgid "missing"
+msgstr ""
+
+#: includes/admin/views/html-atlas-status.php:11
+msgid "error"
+msgstr ""
+
+#: includes/admin/views/html-atlas-status.php:18
+#: includes/admin/views/html-atlas-status.php:22
+msgid "none"
+msgstr ""
+
+#: includes/admin/views/html-atlas-status.php:25
+msgid "not in use"
+msgstr ""
+
+#: includes/admin/views/html-atlas-status.php:47
+msgid ""
+"To create your atlas inside your WordPress database, run the Atlas Installer."
+msgstr ""
+
+#: includes/admin/views/html-atlas-status.php:48
+msgid ""
+"Skip this to use a <a href=\"%s\" target=\"_blank\" rel=\"noopener"
+"\">separate database</a>."
+msgstr ""
+
+#: includes/admin/views/html-atlas-status.php:49
+msgid "Run the Atlas Installer"
+msgstr ""
+
+#: includes/admin/views/html-atlas-status.php:52
+msgid "Try installing atlas again"
+msgstr ""
+
+#: includes/admin/views/html-atlas-status.php:56 includes/settings.php:92
+msgid "Atlas Status"
+msgstr ""
+
+#: includes/admin/views/html-atlas-status.php:60
+msgid "Status"
+msgstr ""
+
+#: includes/admin/views/html-atlas-status.php:69
+msgid "City records count"
+msgstr ""
+
+#: includes/admin/views/html-atlas-status.php:80
+msgid "Database table size"
+msgstr ""
+
+#: includes/admin/views/html-atlas-status.php:91
+msgid "Database table primary key"
+msgstr ""
+
+#: includes/admin/views/html-atlas-status.php:104
+msgid "Database table index"
+msgstr ""
+
+#: includes/async/async-tasks.php:40
+msgid "Cannot find a writable temp directory."
+msgstr ""
+
+#: includes/async/async-tasks.php:54
+msgid "allCountries.zip file could not be downloaded."
+msgstr ""
+
+#: includes/async/async-tasks.php:381
+msgid "ERROR: zp_atlas table does not exist"
+msgstr ""
+
+#: includes/async/async-tasks.php:422
+msgid "Failed to insert cities data into database table."
+msgstr ""
+
+#: includes/settings.php:71
+msgid "Choose Atlas"
+msgstr ""
+
+#: includes/settings.php:72
+msgid ""
+"You need an atlas to get city coordinates and timezones. Do you want to use "
+"GeoNames.org or create your own atlas database? (<a href=\"%1$s\" target="
+"\"_blank\" rel=\"noopener\">Help with this decision</a>)"
+msgstr ""
+
+#: includes/settings.php:75
+msgid "Use GeoNames"
+msgstr ""
+
+#: includes/settings.php:76
+msgid "Use my own atlas database"
+msgstr ""
+
+#: includes/settings.php:83
+msgid "GeoNames Username"
+msgstr ""
+
+#: includes/settings.php:84
+msgid ""
+"Your username from GeoNames.org is needed to get timezone info from their "
+"webservice. (%1$screate free account%2$s)"
+msgstr ""
+
+#: zp-atlas.php:64
+msgid "Active"
+msgstr ""
+
+#: zp-atlas.php:65
+msgid "unzipping allCountries.zip..."
+msgstr ""
+
+#: zp-atlas.php:66
+msgid "Creating table keys..."
+msgstr ""
+
+#: zp-atlas.php:67
+msgid "Failed to create table key(s):"
+msgstr ""
+
+#: zp-atlas.php:68
+msgid "Inserting cities data into database..."
+msgstr ""
+
+#: zp-atlas.php:69
+msgid "installing..."
+msgstr ""
+
+#: zp-atlas.php:70
+msgid ""
+"The atlas is being installed in the background. This will take a few minutes."
+msgstr ""
+
+#: zp-atlas.php:88
+msgid "Check the status."
+msgstr ""
+
+#: zp-atlas.php:91
+msgid "Dismiss this notice."
+msgstr ""
+
+#: zp-atlas.php:97
+msgid "ZodiacPress Status Message"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "ZodiacPress Atlas"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://isabelcastillo.com/free-plugins/zpatlas"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Your own atlas database for ZodiacPress instead of using GeoNames.org"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Isabel Castillo"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://isabelcastillo.com"
+msgstr ""
