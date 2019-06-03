@@ -96,8 +96,10 @@ function zpa_settings_misc($settings) {
 	);
 
 	// insert the new settings after the 1st header
-	$header = array_shift($settings['main']);
+	$header = array('atlas_header' => array_shift($settings['main']));
 	$settings['main'] = array_merge($header, $new, $settings['main']);
 	return $settings;
 }
-add_filter('zp_settings_misc', 'zpa_settings_misc');
+add_action('plugins_loaded', function() {
+	add_filter('zp_settings_misc', 'zpa_settings_misc');
+}, 999);
