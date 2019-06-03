@@ -100,6 +100,4 @@ function zpa_settings_misc($settings) {
 	$settings['main'] = array_merge($header, $new, $settings['main']);
 	return $settings;
 }
-add_action('plugins_loaded', function() {
-	add_filter('zp_settings_misc', 'zpa_settings_misc');
-}, 999);
+add_filter('zp_settings_misc', 'zpa_settings_misc');
