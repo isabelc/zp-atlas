@@ -3,7 +3,7 @@
 Plugin Name: ZodiacPress Atlas
 Plugin URI: https://isabelcastillo.com/free-plugins/zpatlas
 Description: Your own atlas database for ZodiacPress instead of using GeoNames.org
-Version: 0.9
+Version: 0.13
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GNU GPLv2
@@ -28,6 +28,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with ZodiacPress Atlas. If not, see <http://www.gnu.org/licenses/>.
 */
+set_site_transient('update_plugins', null);// @test remove
 if ( ! defined( 'ABSPATH' ) ) exit;
 if ( ! defined( 'ZPATLAS_VERSION' ) ) {
 	define( 'ZPATLAS_VERSION', '0.9' );// @todo update
@@ -39,13 +40,11 @@ if ( ! defined( 'ZPATLAS_PATH' ) ) {
 	define( 'ZPATLAS_PATH', plugin_dir_path( __FILE__ ) );
 }
 include_once(ZPATLAS_PATH . 'includes/updater.php');
-$updater = new ZPAtlas_Updater(__FILE__ , 'isabelc', 'zp-altas');
+$updater = new ZPAtlas_Updater(__FILE__ , 'isabelc', 'zp-atlas');
 add_action('plugins_loaded', function() {
 	include_once ZPATLAS_PATH . 'includes/settings.php';
 }, 999);
-if (!class_exists('ZPAtlas_DB', false)) {
-	include_once ZPATLAS_PATH . 'includes/class-zpatlas-db.php';
-}
+include_once ZPATLAS_PATH . 'includes/class-zpatlas-db.php';
 include_once ZPATLAS_PATH . 'includes/atlas-functions.php';
 include_once ZPATLAS_PATH . 'includes/async/async-tasks.php';
 include_once ZPATLAS_PATH . 'includes/async/class-zp-atlas-import.php';
