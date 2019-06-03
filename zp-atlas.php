@@ -3,7 +3,7 @@
 Plugin Name: ZodiacPress Atlas
 Plugin URI: https://isabelcastillo.com/free-plugins/zpatlas
 Description: Your own atlas database for ZodiacPress instead of using GeoNames.org
-Version: 0.13
+Version: 0.15
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GNU GPLv2
@@ -28,7 +28,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with ZodiacPress Atlas. If not, see <http://www.gnu.org/licenses/>.
 */
-set_site_transient('update_plugins', null);// @test remove
 if ( ! defined( 'ABSPATH' ) ) exit;
 if ( ! defined( 'ZPATLAS_VERSION' ) ) {
 	define( 'ZPATLAS_VERSION', '0.9' );// @todo update
@@ -74,7 +73,7 @@ if ( ! function_exists('zp_string') ) {// @todo remove check in next update
  */
 function zpa_admin_scripts() {
 	$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
-	wp_register_style( 'zpatlas', ZPATLAS_URL . 'assets/css/zpatlass' . $suffix . '.css', array(), ZPATLAS_VERSION );
+	wp_register_style( 'zpatlas', ZPATLAS_URL . 'assets/zpatlas' . $suffix . '.css', array(), ZPATLAS_VERSION );
 	wp_enqueue_style( 'zpatlas' );
 
 	wp_register_script( 'zp-atlas-install', ZPATLAS_URL . '/assets/admin-atlas-install' . $suffix . '.js', array( 'jquery' ), ZPATLAS_VERSION, true );
@@ -111,7 +110,7 @@ add_action( 'admin_enqueue_scripts', 'zpa_admin_scripts', 100 );
 function zpa_register_scripts() {
 	$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
 	/* If atlas db option is selected and if the atlas is installed, use autocomplete-db.js instead of the regular autocomplete.js. */
-	wp_register_script( 'zp-autocomplete-db', ZPATLAS_URL . 'assets/js/zp-autocomplete-db' . $suffix . '.js', array( 'jquery-ui-autocomplete', 'jquery' ), ZPATLAS_VERSION );
+	wp_register_script( 'zp-autocomplete-db', ZPATLAS_URL . 'assets/zp-autocomplete-db' . $suffix . '.js', array( 'jquery-ui-autocomplete', 'jquery' ), ZPATLAS_VERSION );
 	wp_localize_script( 'zp-autocomplete-db', 'zp_js_strings', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 }
 add_action( 'wp_enqueue_scripts', 'zpa_register_scripts' );
