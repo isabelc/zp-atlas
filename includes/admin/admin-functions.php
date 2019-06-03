@@ -32,7 +32,6 @@ function zpatlas_receive_heartbeat( $response, $data ) {
 	} else {
 		$response['zpatlas_status_field'] = get_option( 'zp_atlas_db_pending' );
 		$admin_notice = get_option( 'zp_atlas_db_notice' );
-
 		// only send admin notice if it has changed
 		if ( $admin_notice && get_option( 'zp_atlas_db_previous_notice' ) !== $admin_notice ) {
 			$response['zpatlas_status_notice'] = $admin_notice;
