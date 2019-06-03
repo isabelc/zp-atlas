@@ -4,10 +4,10 @@ if ( ! class_exists( 'WP_Async_Task', false ) ) {
 	include_once ZPATLAS_PATH . 'includes/libraries/wp-async-task.php';
 }
 /**
- * Class that extends WP_Async_Task to import the cities.txt data file in the background
+ * Class that extends WP_Async_Task to unzip the allCountries.zip file in the background
  */
-class ZPAtlas_Import extends WP_Async_Task {
-	protected $action = 'zp_atlas_import';
+class ZPAtlas_Pluck extends WP_Async_Task {
+	protected $action = 'zp_atlas_pluck';
 	/**
 	 * Prepare data for the asynchronous request
 	 *
@@ -18,10 +18,7 @@ class ZPAtlas_Import extends WP_Async_Task {
 	 * @return array
 	 */
 	protected function prepare_data( $data ) {
-		if ( ZPAtlas_DB::is_installed() ) {
-			throw new Exception( 'Atlas is already installed so do not get the data file again.' );
-		}
-		return $data;
+		return array('dir' => $data[0]);
 	}
 	/**
 	 * Run the async task action

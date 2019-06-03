@@ -3,7 +3,7 @@
 Plugin Name: ZodiacPress Atlas
 Plugin URI: https://isabelcastillo.com/free-plugins/zpatlas
 Description: Your own atlas database for ZodiacPress instead of using GeoNames.org
-Version: 0.15
+Version: 0.16
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GNU GPLv2
@@ -46,8 +46,11 @@ add_action('plugins_loaded', function() {
 include_once ZPATLAS_PATH . 'includes/class-zpatlas-db.php';
 include_once ZPATLAS_PATH . 'includes/atlas-functions.php';
 include_once ZPATLAS_PATH . 'includes/async/async-tasks.php';
-include_once ZPATLAS_PATH . 'includes/async/class-zp-atlas-import.php';
-include_once ZPATLAS_PATH . 'includes/async/class-zp-atlas-insert-db.php';
+include_once ZPATLAS_PATH . 'includes/async/class-zpatlas-download.php';
+include_once ZPATLAS_PATH . 'includes/async/class-zpatlas-unzip.php';
+include_once ZPATLAS_PATH . 'includes/async/class-zpatlas-pluck.php';
+include_once ZPATLAS_PATH . 'includes/async/class-zpatlas-mapcodes.php';
+include_once ZPATLAS_PATH . 'includes/async/class-zpatlas-insert-db.php';
 
 if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 	include_once ZPATLAS_PATH . 'includes/admin/admin-functions.php';
@@ -59,6 +62,7 @@ if ( ! function_exists('zp_string') ) {// @todo remove check in next update
 	function zp_string( $id = '' ) {
 		$strings = array(
 			'active'		=> __( 'Active', 'zp-atlas' ),
+			'unzip' => __( 'unzipping allCountries.zip...', 'zp-atlas' ),
 			'creating'		=> __( 'Creating table keys...', 'zp-atlas' ),
 			'failed_keys'	=> __( 'Failed to create table key(s):', 'zp-atlas' ),
 			'inserting'		=> __( 'Inserting cities data into database...', 'zp-atlas' ),
@@ -82,6 +86,7 @@ function zpa_admin_scripts() {
 		array(
 			'adminurl'		=> admin_url(),
 			'checkStatus'	=> __( 'Check the status.', 'zp-atlas' ),
+			'unzip'			=> zp_string('unzip'),
 			'creatingKeys'	=> zp_string( 'creating' ),
 			'dismiss'		=> __( 'Dismiss this notice.', 'zp-atlas' ),
 			'inserting'		=> zp_string( 'inserting' ),

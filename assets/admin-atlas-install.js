@@ -11,32 +11,36 @@ if ( '1' === zpAtlasStrings.installingNow ) {
 	zpSpinner();
 }
 
-/* Run Installer upon button click */
 
-var zpAtlasInstall = document.getElementById( 'zp-atlas-install' );
-if ( zpAtlasInstall !== null ) {
-	zpAtlasInstall.addEventListener( 'click', function (e) {
-	    e.preventDefault();
+// Run the atlas installer
+var zpaRunInstaller = function (e) {
+    e.preventDefault();
 
-		// show the 'installing in background...' admin notice
-		zpAtlasNotice( zpAtlasStrings.installingNotice );
-		window.scroll(0,0);
+	// show the 'installing in background...' admin notice
+	zpAtlasNotice( zpAtlasStrings.installingNotice );
+	window.scroll(0,0);
 
-		// remove installer
-		var el = document.getElementById( 'zp-atlas-installer' );
-		if ( el !== null ) { el.parentNode.removeChild( el ); }
+	this.parentNode.removeChild( this );// remove installer button
 
-		jQuery.post(ajaxurl, 'action=zp_atlas_install&_ajax_nonce=' + zpAtlasStrings.nonce, function(response) {
+	jQuery.post(ajaxurl, 'action=zp_atlas_install&id=' + this.id + '&_ajax_nonce=' + zpAtlasStrings.nonce, function(response) {
 				
-				/* Replace 'none' status with 'installing...' */
-				document.querySelector( '.zp-atlas-error' ).textContent = zpAtlasStrings.installing;
+			/* Replace 'none' status with 'installing...' */
+			document.querySelector( '.zp-atlas-error' ).textContent = zpAtlasStrings.installing;
 
-				/* Start spinner */
-				zpSpinner();
-
-		});
-
+			/* Start spinner */
+			zpSpinner();
 	});
+};
+
+/* Run Installer upon button click */
+var zpAtlasInstall = document.getElementById( 'zp-atlas-install' ),
+	zpAtlasTryAgain = document.getElementById( 'zp-atlas-try-again' );
+
+if ( zpAtlasInstall !== null ) {
+	zpAtlasInstall.addEventListener( 'click', zpaRunInstaller );
+}
+if ( zpAtlasTryAgain !== null ) {
+	zpAtlasTryAgain.addEventListener( 'click', zpaRunInstaller );
 }
 
 /**
@@ -58,6 +62,7 @@ jQuery( document ).on( 'heartbeat-tick', function ( event, data ) {
 	/* Show admin notice if there is one */
 
 	var notice = ! data.zpatlas_status_notice ? '' : data.zpatlas_status_notice.trim();
+
 	if ( notice ) {
 
 		/* Remove any old zp atlas admin notice */
@@ -94,8 +99,8 @@ jQuery( document ).on( 'heartbeat-tick', function ( event, data ) {
 			/* update the status text */
 			status.textContent = message;
 
-			/* restart spinner only if status is Inserting or 'Creating table keys' */
-			if ( message === zpAtlasStrings.inserting || message === zpAtlasStrings.creatingKeys ) {
+			/* restart spinner only if status is Inserting, unzip or 'Creating table keys' */
+			if ( message === zpAtlasStrings.inserting || message === zpAtlasStrings.unzip || message === zpAtlasStrings.creatingKeys ) {
 				zpSpinner();
 			}
 

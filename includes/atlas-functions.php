@@ -48,7 +48,10 @@ function zpatlas_option() {
  */
 function zpatlas_ajax_install() {
 	check_ajax_referer( 'zp_atlas_install' );
-	
+	if ('zp-atlas-try-again' === $_POST['id']) {
+		// remove the previous Error admin notice or else it continues to pop up on heartbeat ticks
+		delete_option('zp_atlas_db_notice');
+	}
 	/**
 	 * Temporary flag to remove the Atlas Installer button during background installation.
 	 */
@@ -62,13 +65,10 @@ function zpatlas_ajax_install() {
 	$options = get_option( 'zodiacpress_settings' );
 	$options['atlas'] = 'db';
 	update_option( 'zodiacpress_settings', $options );
-
 	zpatlas_create_table();
-	// Trigger the first async task: download the cities data file
-	do_action('zp_atlas_import');
-	
+	// Trigger the first async task: download the allCountries.zip file
+	do_action('zp_atlas_download');
 	wp_die();
-
 }
 add_action( 'wp_ajax_zp_atlas_install', 'zpatlas_ajax_install' );
 
@@ -172,20 +172,12 @@ function zpatlas_table_create_keys() {
  */
 function zpatlas_load_data_infile() {
 	global $wpdb;
-	$return = false;
     $file = get_temp_dir() . 'cities.txt';
-    $sql = "LOAD DATA LOCAL INFILE '$file'
-        IGNORE
-        INTO TABLE " . $wpdb->prefix . "zp_atlas
-        FIELDS TERMINATED BY '\t'
-        LINES TERMINATED BY '" . PHP_EOL . "'
-        (geonameid, name, latitude, longitude, country, admin1, timezone, mod_date)";
-
-	$result = $wpdb->query( $sql );
-
-	if ( false !== $result ) {
-		$return = true;
-	}
-
-    return $return;
+	$sql = "LOAD DATA LOCAL INFILE '$file' IGNORE INTO TABLE " . $wpdb->prefix . "zp_atlas FIELDS TERMINATED BY '\t' LINES TERMINATED BY '" . PHP_EOL . "'(geonameid, name, latitude, longitude, country, admin1, timezone, mod_date);";
+	$dbUser = DB_USER;
+	$dbHost = DB_HOST;
+	$dbPass = DB_PASSWORD;
+	$dbName = DB_NAME;
+	system("mysql -u $dbUser -h $dbHost --password=$dbPass --local_infile=1 -e \"$sql\" $dbName");
+	return ( ZPAtlas_DB::row_count() > 3000000 );
 }

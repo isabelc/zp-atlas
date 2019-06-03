@@ -48,8 +48,9 @@ if ( ! ZPAtlas_DB::is_installed() && ! ZPAtlas_DB::is_separate_db() && ! $instal
 			<strong><?php printf( __( 'Skip this to use a <a href="%s" target="_blank" rel="noopener">separate database</a>.', 'zp-atlas' ), 'https://isabelcastillo.com/docs/atlas-separate-database' ); ?></strong></p>
 		<p><button id="zp-atlas-install" class="button-primary"><?php _e( 'Run the Atlas Installer', 'zp-atlas' ); ?></button></p>
 	</div>
-<?php } ?>
-
+<?php } elseif(get_option('zp_atlas_db_try_again')) {
+	?><button id="zp-atlas-try-again" class="button-secondary"><?php _e( 'Try installing atlas again', 'zp-atlas' ); ?></button><br><br><?php
+} ?>
 <div id="zp-atlas-status" class="stuffbox">
 	<div class="inside">
 		<h2><?php _e( 'Atlas Status', 'zp-atlas' ); ?></h2>
