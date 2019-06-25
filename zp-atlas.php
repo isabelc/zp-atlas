@@ -3,7 +3,7 @@
 Plugin Name: ZodiacPress Atlas
 Plugin URI: https://isabelcastillo.com/free-plugins/zpatlas
 Description: Your own atlas database for ZodiacPress instead of using GeoNames.org
-Version: 1.0
+Version: 1.1.alpha-41
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GNU GPLv2
@@ -51,26 +51,23 @@ include_once ZPATLAS_PATH . 'includes/async/class-zpatlas-unzip.php';
 include_once ZPATLAS_PATH . 'includes/async/class-zpatlas-pluck.php';
 include_once ZPATLAS_PATH . 'includes/async/class-zpatlas-mapcodes.php';
 include_once ZPATLAS_PATH . 'includes/async/class-zpatlas-insert-db.php';
-
 if ( is_admin() || ( defined( 'WP_CLI' ) && WP_CLI ) ) {
 	include_once ZPATLAS_PATH . 'includes/admin/admin-functions.php';
 }
-if ( ! function_exists('zp_string') ) {// @todo remove check in next update
-	/**
-	 * Returns a ZP message string
-	 */
-	function zp_string( $id = '' ) {
-		$strings = array(
-			'active'		=> __( 'Active', 'zp-atlas' ),
-			'unzip' => __( 'unzipping allCountries.zip...', 'zp-atlas' ),
-			'creating'		=> __( 'Creating table keys...', 'zp-atlas' ),
-			'failed_keys'	=> __( 'Failed to create table key(s):', 'zp-atlas' ),
-			'inserting'		=> __( 'Inserting cities data into database...', 'zp-atlas' ),
-			'installing'	=> __( 'installing...', 'zp-atlas' ),
-			'installing_notice' => __( 'The atlas is being installed in the background. This will take a few minutes.', 'zp-atlas' )
-		);
-		return $strings[ $id ];
-	}
+/**
+ * Returns a message string
+ */
+function zpa_string( $id = '' ) {
+	$strings = array(
+		'active'		=> __( 'Active', 'zp-atlas' ),
+		'unzip' => __( 'unzipping allCountries.zip...', 'zp-atlas' ),
+		'creating'		=> __( 'Creating table keys...', 'zp-atlas' ),
+		'failed_keys'	=> __( 'Failed to create table key(s):', 'zp-atlas' ),
+		'inserting'		=> __( 'Inserting cities data into database...', 'zp-atlas' ),
+		'installing'	=> __( 'installing...', 'zp-atlas' ),
+		'installing_notice' => __( 'The atlas is being installed in the background. This will take a few minutes.', 'zp-atlas' )
+	);
+	return $strings[ $id ];
 }
 /**
  * Load admin-specific scripts and styles.
@@ -86,12 +83,12 @@ function zpa_admin_scripts() {
 		array(
 			'adminurl'		=> admin_url(),
 			'checkStatus'	=> __( 'Check the status.', 'zp-atlas' ),
-			'unzip'			=> zp_string('unzip'),
-			'creatingKeys'	=> zp_string( 'creating' ),
+			'unzip'			=> zpa_string('unzip'),
+			'creatingKeys'	=> zpa_string( 'creating' ),
 			'dismiss'		=> __( 'Dismiss this notice.', 'zp-atlas' ),
-			'inserting'		=> zp_string( 'inserting' ),
-			'installing'	=> zp_string( 'installing' ),
-   			'installingNotice'	=> zp_string( 'installing_notice' ),
+			'inserting'		=> zpa_string( 'inserting' ),
+			'installing'	=> zpa_string( 'installing' ),
+   			'installingNotice'	=> zpa_string( 'installing_notice' ),
    			'installingNow' => get_option( 'zp_atlas_db_installing' ),
 			'nonce'			=> wp_create_nonce( 'zp_atlas_install' ),
 			'statusHeading'	=> __( 'ZodiacPress Status Message', 'zp-atlas' )
