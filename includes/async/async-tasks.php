@@ -1,4 +1,4 @@
- <?php
+<?php
 if ( ! defined( 'ABSPATH' ) ) exit;
 /**
  * Instantiates the async tasks so they will run when their actions are fired.
