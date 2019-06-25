@@ -3,7 +3,7 @@
 Plugin Name: ZodiacPress Atlas
 Plugin URI: https://isabelcastillo.com/free-plugins/zpatlas
 Description: Your own atlas database for ZodiacPress instead of using GeoNames.org
-Version: 1.1.alpha-41
+Version: 1.1.alpha-44
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GNU GPLv2
@@ -111,9 +111,18 @@ add_action( 'admin_enqueue_scripts', 'zpa_admin_scripts', 100 );
  */
 function zpa_register_scripts() {
 	$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+	
+	
+	// @deprecated @todo remove this in next update after 1.1, leave only the new one below
 	/* If atlas db option is selected and if the atlas is installed, use autocomplete-db.js instead of the regular autocomplete.js. */
 	wp_register_script( 'zp-autocomplete-db', ZPATLAS_URL . 'assets/zp-autocomplete-db' . $suffix . '.js', array( 'jquery-ui-autocomplete', 'jquery' ), ZPATLAS_VERSION );
 	wp_localize_script( 'zp-autocomplete-db', 'zp_js_strings', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+
+	// new 
+	wp_register_script( 'zp-atlas', ZPATLAS_URL . 'assets/zp-atlas' . $suffix . '.js', array(), ZPATLAS_VERSION );
+	$str = zp_script_localization_data();
+	unset($str['lang'],$str['u']);
+	wp_localize_script( 'zp-atlas', 'zpastr', $str );
 }
 add_action( 'wp_enqueue_scripts', 'zpa_register_scripts' );
 /**
@@ -122,8 +131,25 @@ add_action( 'wp_enqueue_scripts', 'zpa_register_scripts' );
 function zpa_swap_scripts( $report_atts ) {
 	/* If atlas db option is selected and if the atlas is installed, use autocomplete-db.js instead of the regular autocomplete.js. */
 	if ( ZPAtlas_DB::use_db() ) {
-		wp_dequeue_script( 'zp-autocomplete' );
-		wp_enqueue_script( 'zp-autocomplete-db' );
+
+		// @deprecated @todo remove legacy stuff and version_compare in next update after 1.1
+		if ( defined('ZODIACPRESS_VERSION') && version_compare(ZODIACPRESS_VERSION, '1.9.1', '>') ) {
+
+			// for new ZP > 2.0
+
+			wp_dequeue_script( 'zp-autocomplete' );
+			wp_enqueue_script( 'zp-autocomplete-db' );
+
+
+		} else {
+
+			// for legacy ZP < 2.0 
+
+			wp_dequeue_script( 'zp' );
+			wp_enqueue_script( 'zp-atlas' );
+
+		}
+
 	}
 }
 add_action( 'zp_report_shortcode_before', 'zpa_swap_scripts' );
