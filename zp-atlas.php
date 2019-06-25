@@ -136,20 +136,15 @@ function zpa_swap_scripts( $report_atts ) {
 		if ( defined('ZODIACPRESS_VERSION') && version_compare(ZODIACPRESS_VERSION, '1.9.1', '>') ) {
 
 			// for new ZP > 2.0
-
-			wp_dequeue_script( 'zp-autocomplete' );
-			wp_enqueue_script( 'zp-autocomplete-db' );
-
+			wp_dequeue_script( 'zp' );
+			wp_enqueue_script( 'zp-atlas' );
 
 		} else {
 
 			// for legacy ZP < 2.0 
-
-			wp_dequeue_script( 'zp' );
-			wp_enqueue_script( 'zp-atlas' );
-
+			wp_dequeue_script( 'zp-autocomplete' );
+			wp_enqueue_script( 'zp-autocomplete-db' );
 		}
-
 	}
 }
 add_action( 'zp_report_shortcode_before', 'zpa_swap_scripts' );
