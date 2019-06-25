@@ -57,7 +57,7 @@ function zpatlas_ajax_install() {
 	 */
 	update_option( 'zp_atlas_db_installing', true );
 
-	update_option( 'zp_atlas_db_previous_notice', zp_string( 'installing_notice' ) );
+	update_option( 'zp_atlas_db_previous_notice', zpa_string( 'installing_notice' ) );
 
 	/**
 	 * Update the atlas option since the intent is to use the db instead of GeoNames

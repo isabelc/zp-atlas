@@ -21,7 +21,7 @@ function zpatlas_receive_heartbeat( $response, $data ) {
 	if ( get_transient( 'zp_atlas_ready_once' ) ) {
 		delete_transient( 'zp_atlas_ready_once' );
 		$response['zpatlas_status_notice'] = __( 'The atlas installation is complete. It is ready for use.', 'zp-atlas' );
-		$response['zpatlas_status_field'] = zp_string( 'active' );
+		$response['zpatlas_status_field'] = zpa_string( 'active' );
 		// send DB row count, size, and keys
 		$response['zpatlas_status_db'] = array(
 			'rows'	=> number_format( ZPAtlas_DB::row_count() ),

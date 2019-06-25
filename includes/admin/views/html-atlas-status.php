@@ -15,7 +15,7 @@ $checkmark = '';
 if ( $pending_msg ) {
 	$status = $pending_msg;
 } else {
-	$status = ( $installing ? zp_string( 'installing' ) : __( 'none', 'zp-atlas' ) );
+	$status = ( $installing ? zpa_string( 'installing' ) : __( 'none', 'zp-atlas' ) );
 }
 
 if ( ! $table_exists ) {
@@ -29,7 +29,7 @@ if ( ! $table_exists ) {
 
 		    // check if table installation is complete
 			if ( ZPAtlas_DB::use_db() ) {
-		    	$status = zp_string( 'active' );
+		    	$status = zpa_string( 'active' );
 		    	$class = 'success';
 		    	$checkmark = ' &#x2713; &nbsp; ';
 			}

@@ -66,7 +66,7 @@ add_action( 'wp_async_zp_atlas_download', function () {
 
 
 	if ( $out ) {
-		$status = zp_string( 'unzip' );
+		$status = zpa_string( 'unzip' );
 		// Trigger the next async task: unzip allCountries.zip
 		do_action('zp_atlas_unzip', $temp_dir);
 
@@ -348,7 +348,7 @@ add_action( 'wp_async_zp_atlas_mapcodes', function () {
 
 		// cities.txt datafile is ready
 
-		$status = zp_string( 'inserting' );
+		$status = zpa_string( 'inserting' );
 
 		// Trigger the next async task: insert cities data into database table
 
@@ -393,7 +393,7 @@ add_action( 'wp_async_zp_atlas_insert_db', function () {
 		if ( true === $index ) {
 			$out = true;
 		} else {
-			$error = sprintf( '%s %s.', zp_string( 'failed_keys' ), $index );
+			$error = sprintf( '%s %s.', zpa_string( 'failed_keys' ), $index );
 		}		
 		
 
@@ -403,7 +403,7 @@ add_action( 'wp_async_zp_atlas_insert_db', function () {
 
 		if ( true === $insert ) {
 			
-			update_option( 'zp_atlas_db_pending', zp_string( 'creating' ) );
+			update_option( 'zp_atlas_db_pending', zpa_string( 'creating' ) );
 			
 			// create primary key and index
 			$index = zpatlas_table_create_keys();
@@ -414,7 +414,7 @@ add_action( 'wp_async_zp_atlas_insert_db', function () {
 
 			} else {
 
-				$error = sprintf( '%s %s.', zp_string( 'failed_keys' ), $index );
+				$error = sprintf( '%s %s.', zpa_string( 'failed_keys' ), $index );
 
 			}
 		} else {
