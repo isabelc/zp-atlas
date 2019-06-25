@@ -1,5 +1,6 @@
 /**
  * Autocomplete city field from atlas database
+ * @deprecated @todo delete this file and the .min.js after next update - after version 1.1
  */
 jQuery( '#place' ).autocomplete({
 	source: function( request, response ) {
