@@ -11,9 +11,9 @@ Lets you use your own Atlas database instead of GeoNames.org.
 == Changelog ==
 
 = 1.1 =
-* New - removed jquery-autocomplete dependency. It's all now plain vanilla JavaScript.
+* New - removed jquery-autocomplete dependency. It is all now plain vanilla JavaScript.
 * Fixed - removed whitespace that was causing error on activation.
-* Build - Changed zp_string() to zpa_string().
+* Build - Changed zp_string to zpa_string.
 * Build - deprecated the zp-autocomplete-db.js file.
 
 = 1.0 =
