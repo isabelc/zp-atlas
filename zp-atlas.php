@@ -3,7 +3,7 @@
 Plugin Name: ZodiacPress Atlas
 Plugin URI: https://isabelcastillo.com/free-plugins/zpatlas
 Description: Your own atlas database for ZodiacPress instead of using GeoNames.org
-Version: 1.1
+Version: 1.1.alpha-1
 Author: Isabel Castillo
 Author URI: https://isabelcastillo.com
 License: GNU GPLv2
@@ -126,7 +126,7 @@ function zpa_register_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'zpa_register_scripts' );
 /**
- * Load the zp-autocomplete-db js instead of the core zp-autocomplete js
+ * Load the zp-autocomplete-db js instead of the core zp js
  */
 function zpa_swap_scripts( $report_atts ) {
 	/* If atlas db option is selected and if the atlas is installed, use autocomplete-db.js instead of the regular autocomplete.js. */
